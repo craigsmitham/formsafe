@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "format": "prettier"
+    "format": "prettier --write \"**/*.{js,ts,css,scss,sass,json,html}\""
   },
   "private": true,
   "dependencies": {

@@ -31,9 +31,7 @@
               "projects/formsafe/tsconfig.lib.json",
               "projects/formsafe/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -57,9 +55,7 @@
               "projects/formsafe-example/src/favicon.ico",
               "projects/formsafe-example/src/assets"
             ],
-            "styles": [
-              "projects/formsafe-example/src/styles.css"
-            ],
+            "styles": ["projects/formsafe-example/src/styles.css"],
             "scripts": []
           },
           "configurations": {
@@ -113,9 +109,7 @@
             "polyfills": "projects/formsafe-example/src/polyfills.ts",
             "tsConfig": "projects/formsafe-example/tsconfig.spec.json",
             "karmaConfig": "projects/formsafe-example/karma.conf.js",
-            "styles": [
-              "projects/formsafe-example/src/styles.css"
-            ],
+            "styles": ["projects/formsafe-example/src/styles.css"],
             "scripts": [],
             "assets": [
               "projects/formsafe-example/src/favicon.ico",
@@ -130,9 +124,7 @@
               "projects/formsafe-example/tsconfig.app.json",
               "projects/formsafe-example/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -158,9 +150,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "projects/formsafe-example-e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }

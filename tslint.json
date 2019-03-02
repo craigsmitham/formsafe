@@ -1,36 +1,51 @@
 {
-  "rulesDirectory": [
-    "codelyzer"
-  ],
+  "rulesDirectory": ["codelyzer"],
   "rules": {
+    // tslint (https://palantir.github.io/tslint/rules/)
+    // Formatting (disable because we use Prettier)
+    "align": [false],
+    "arrow-parens": false,
+    "eofline": false,
+    "import-spacing": false,
+    "indent": [false],
+    "linebreak-style": [false],
+    "max-line-length": [false],
+    "new-parens": false,
+    "no-consecutive-blank-lines": [false],
+    "no-irregular-whitespace": false,
+    "no-trailing-whitespace": false,
+    "object-literal-key-quotes": [false],
+    "one-line": [false],
+    "quotemark": [false],
+    "semicolon": [false],
+    "space-before-function-paren": false,
+    "trailing-comma": [false],
+    "whitespace": [false],
+    // rxjs-tslint-rules (https://github.com/cartant/rxjs-tslint-rules)
+    "rxjs-no-unsafe-takeuntil": { "severity": "error" },
+    "rxjs-no-nested-subscribe": { "severity": "error" },
+    "rxjs-ban-operators": {
+      "options": [
+        {
+          "combineLatest": "Use the static version instead"
+        }
+      ],
+      "severity": "error"
+    },
     "arrow-return-shorthand": true,
     "callable-types": true,
     "class-name": true,
-    "comment-format": [
-      true,
-      "check-space"
-    ],
+    "comment-format": [true, "check-space"],
     "curly": true,
     "deprecation": {
       "severity": "warn"
     },
-    "eofline": true,
     "forin": true,
-    "import-blacklist": [
-      true,
-      "rxjs/Rx"
-    ],
-    "import-spacing": true,
-    "indent": [
-      true,
-      "spaces"
-    ],
+    "import-blacklist": [true, "rxjs/Rx"],
+
     "interface-over-type-literal": true,
     "label-position": true,
-    "max-line-length": [
-      true,
-      140
-    ],
+
     "member-access": false,
     "member-ordering": [
       true,
@@ -45,24 +60,14 @@
     ],
     "no-arg": true,
     "no-bitwise": true,
-    "no-console": [
-      true,
-      "debug",
-      "info",
-      "time",
-      "timeEnd",
-      "trace"
-    ],
+    "no-console": [true, "debug", "info", "time", "timeEnd", "trace"],
     "no-construct": true,
     "no-debugger": true,
     "no-duplicate-super": true,
     "no-empty": false,
     "no-empty-interface": true,
     "no-eval": true,
-    "no-inferrable-types": [
-      true,
-      "ignore-params"
-    ],
+    "no-inferrable-types": [true, "ignore-params"],
     "no-misused-new": true,
     "no-non-null-assertion": true,
     "no-redundant-jsdoc": true,
@@ -70,33 +75,17 @@
     "no-string-literal": false,
     "no-string-throw": true,
     "no-switch-case-fall-through": true,
-    "no-trailing-whitespace": true,
     "no-unnecessary-initializer": true,
     "no-unused-expression": true,
     "no-use-before-declare": true,
     "no-var-keyword": true,
     "object-literal-sort-keys": false,
-    "one-line": [
-      true,
-      "check-open-brace",
-      "check-catch",
-      "check-else",
-      "check-whitespace"
-    ],
+
     "prefer-const": true,
-    "quotemark": [
-      true,
-      "single"
-    ],
+
     "radix": true,
-    "semicolon": [
-      true,
-      "always"
-    ],
-    "triple-equals": [
-      true,
-      "allow-null-check"
-    ],
+
+    "triple-equals": [true, "allow-null-check"],
     "typedef-whitespace": [
       true,
       {
@@ -109,14 +98,6 @@
     ],
     "unified-signatures": true,
     "variable-name": false,
-    "whitespace": [
-      true,
-      "check-branch",
-      "check-decl",
-      "check-operator",
-      "check-separator",
-      "check-type"
-    ],
     "no-output-on-prefix": true,
     "use-input-property-decorator": true,
     "use-output-property-decorator": true,

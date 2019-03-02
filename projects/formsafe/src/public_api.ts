@@ -2,5 +2,6 @@
  * Public API Surface of formsafe
  */
 
-export * from "./lib/typed-form-builder";
-export * from "./lib/formsafe.module";
+export { TypedFormBuilder } from "./lib/form_builder";
+export { FormSafeModule } from "./lib/formsafe.module";
+export { TypedControl, TypedFormArray, TypedFormGroup } from "./lib/model";

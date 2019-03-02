@@ -6,7 +6,6 @@ import {
   AbstractControlOptions,
   ValidatorFn,
   AsyncValidatorFn,
-  ValidationErrors,
 } from '@angular/forms';
 import { Observable } from 'rxjs';
 
@@ -18,6 +17,8 @@ type DeepPartial<T> = {
     ? ReadonlyArray<DeepPartial<U>>
     : DeepPartial<T[P]>
 };
+
+export type DefaultScalars = Date;
 
 export class TypedFormControl<T> extends FormControl {
   public readonly value!: T;
@@ -66,15 +67,17 @@ export class TypedFormControl<T> extends FormControl {
   }
 }
 
-type TypedGroupControls<T> = { [name in keyof T]-?: TypedControl<T[name]> };
+type TypedGroupControls<T, TScalar> = {
+  [name in keyof T]-?: TypedControl<T[name], TScalar>
+};
 
-export class TypedFormGroup<T> extends FormGroup {
+export class TypedFormGroup<T, TScalar = DefaultScalars> extends FormGroup {
   public readonly value!: T;
   public readonly valueChanges!: Observable<T>;
-  public controls!: TypedGroupControls<T>;
+  public controls!: TypedGroupControls<T, TScalar>;
 
   constructor(
-    controls: { [key in keyof T]: TypedControl<T[key]> },
+    controls: { [key in keyof T]: TypedControl<T[key], DefaultScalars> },
     options?: ValidatorFn[] | AbstractControlOptions | null,
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
   ) {
@@ -130,21 +133,25 @@ export type FormState<T> =
       disabled: boolean | null;
     };
 
-type TypedControl<T> = T extends Array<infer T1>
+type TypedControl<T, TScalar> = T extends TScalar
+  ? TypedFormControl<T>
+  : T extends Array<infer T1>
   ? TypedFormArray<T1>
   : T extends ReadonlyArray<infer T2>
   ? TypedFormArray<T2>
   : T extends object
-  ? TypedFormGroup<T>
+  ? TypedFormGroup<T, TScalar>
   : TypedFormControl<T>;
 
-export type ControlsConfig<T> = {
-  [key in keyof T]-?: T[key] extends Array<infer T1>
+export type ControlsConfig<T, TScalar> = {
+  [key in keyof T]-?: T[key] extends TScalar
+    ? (ControlConfig<T[key]> | TypedFormControl<T[key]>)
+    : T[key] extends Array<infer T1>
     ? TypedFormArray<T1>
     : T[key] extends ReadonlyArray<infer T2>
     ? TypedFormArray<T2>
     : T[key] extends object
-    ? TypedFormGroup<T[key]>
+    ? TypedFormGroup<T[key], TScalar>
     : (ControlConfig<T[key]> | TypedFormControl<T[key]>)
 };
 

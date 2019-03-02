@@ -9,6 +9,15 @@ describe('TypedFormBuilderService', () => {
   beforeEach(() => (fb = new TypedFormBuilder()));
 
   describe('Typed form group', () => {
+    it('treats Date types as scalar values', () => {
+      const ctrl = fb.group<{
+        someDate: Date;
+      }>({
+        someDate: [new Date()],
+      });
+      expect(ctrl.controls.someDate instanceof TypedFormControl).toBe(true);
+    });
+
     interface FormValueType {
       name: string;
       description?: string;

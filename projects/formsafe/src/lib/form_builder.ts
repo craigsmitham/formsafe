@@ -11,6 +11,7 @@ import {
   TypedFormControl,
   TypedFormArray,
   FormState,
+  DefaultScalars,
 } from './model';
 
 @Injectable()
@@ -22,21 +23,21 @@ export class TypedFormBuilder extends FormBuilder {
     this._fb.control = this.control;
   }
 
-  group<T = any>(
-    controlsConfig: ControlsConfig<T>,
+  group<T = any, TScalar = DefaultScalars>(
+    controlsConfig: ControlsConfig<T, TScalar>,
     options?:
       | AbstractControlOptions
       | {
           [key: string]: any;
         }
       | null
-  ): TypedFormGroup<T> {
+  ): TypedFormGroup<T, TScalar> {
     const { controls, updateOn, validator, asyncValidator } = this._fb.group(
       controlsConfig,
       options
     );
 
-    return new TypedFormGroup<T>(controls as any, {
+    return new TypedFormGroup<T, TScalar>(controls as any, {
       asyncValidators: asyncValidator,
       validators: validator,
       updateOn,

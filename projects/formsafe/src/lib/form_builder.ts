@@ -3,14 +3,14 @@ import {
   FormBuilder,
   AbstractControlOptions,
   ValidatorFn,
-  AsyncValidatorFn
+  AsyncValidatorFn,
 } from '@angular/forms';
 import {
   ControlsConfig,
   TypedFormGroup,
   TypedFormControl,
   TypedFormArray,
-  FormState
+  FormState,
 } from './model';
 
 @Injectable()
@@ -39,7 +39,7 @@ export class TypedFormBuilder extends FormBuilder {
     return new TypedFormGroup<T>(controls as any, {
       asyncValidators: asyncValidator,
       validators: validator,
-      updateOn
+      updateOn,
     });
   }
 
@@ -72,7 +72,7 @@ export class TypedFormBuilder extends FormBuilder {
     return new TypedFormArray<T>(ctrl.controls, {
       asyncValidators: ctrl.asyncValidator,
       updateOn: ctrl.updateOn,
-      validators: ctrl.validator
+      validators: ctrl.validator,
     });
   }
 }

@@ -6,6 +6,6 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [],
   imports: [ReactiveFormsModule],
   exports: [ReactiveFormsModule],
-  providers: [TypedFormBuilder]
+  providers: [TypedFormBuilder],
 })
 export class TypedReactiveFormsModule {}

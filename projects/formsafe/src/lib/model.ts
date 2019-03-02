@@ -6,7 +6,7 @@ import {
   AbstractControlOptions,
   ValidatorFn,
   AsyncValidatorFn,
-  ValidationErrors
+  ValidationErrors,
 } from '@angular/forms';
 import { Observable } from 'rxjs';
 

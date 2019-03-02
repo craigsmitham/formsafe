@@ -22,8 +22,8 @@ describe('TypedFormBuilderService', () => {
         name: { value: 'foo', disabled: true },
         description: 'baz',
         address: fb.group({
-          street: '123 main'
-        })
+          street: '123 main',
+        }),
       });
       const nameVal: string | undefined = ctrl.controls.name.value;
     });
@@ -46,8 +46,8 @@ describe('TypedFormBuilderService', () => {
             name: 'bar',
             description: 'baz',
             address: {
-              street: '123 main'
-            }
+              street: '123 main',
+            },
           });
         });
         it('can be initialized with property value', () => {
@@ -55,8 +55,8 @@ describe('TypedFormBuilderService', () => {
             name: 'bar',
             description: 'baz',
             address: fb.group<FormValueType['address']>({
-              street: '123 main'
-            })
+              street: '123 main',
+            }),
           });
         });
 
@@ -64,18 +64,18 @@ describe('TypedFormBuilderService', () => {
           ctrl = fb.group<FormValueType>({
             name: {
               value: 'bar',
-              disabled: false
+              disabled: false,
             },
             description: {
               value: 'baz',
-              disabled: false
+              disabled: false,
             },
             address: fb.group<FormValueType['address']>({
               street: {
                 value: '123 main',
-                disabled: false
-              }
-            })
+                disabled: false,
+              },
+            }),
           });
         });
 
@@ -84,8 +84,8 @@ describe('TypedFormBuilderService', () => {
             name: ['bar'],
             description: ['baz'],
             address: fb.group<FormValueType['address']>({
-              street: ['123 main']
-            })
+              street: ['123 main'],
+            }),
           });
         });
       });
@@ -96,8 +96,8 @@ describe('TypedFormBuilderService', () => {
             name: null,
             description: null,
             address: {
-              street: null
-            }
+              street: null,
+            },
           });
         });
 
@@ -106,8 +106,8 @@ describe('TypedFormBuilderService', () => {
             name: null,
             description: null,
             address: fb.group<FormValueType['address']>({
-              street: null
-            })
+              street: null,
+            }),
           });
         });
 
@@ -116,8 +116,8 @@ describe('TypedFormBuilderService', () => {
             name: undefined,
             description: [undefined],
             address: fb.group<FormValueType['address']>({
-              street: undefined
-            })
+              street: undefined,
+            }),
           });
         });
       });

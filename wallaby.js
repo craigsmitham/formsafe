@@ -14,7 +14,7 @@ module.exports = function(wallaby) {
       'src/wallabyTest.js',
       'src/**/*spec.js',
       // added...
-      'projects/formsafe/src/lib/**/*spec.js'
+      'projects/formsafe/src/lib/**/*spec.js',
     ],
 
     module: {
@@ -25,19 +25,19 @@ module.exports = function(wallaby) {
           test: /\.ts$/,
           loader: '@ngtools/webpack',
           include: /node_modules/,
-          query: { tsConfigPath: 'tsconfig.json' }
+          query: { tsConfigPath: 'tsconfig.json' },
         },
         {
           test: /\.js$/,
           loader: 'angular2-template-loader',
-          exclude: /node_modules/
+          exclude: /node_modules/,
         },
         { test: /\.json$/, loader: 'json-loader' },
         { test: /\.styl$/, loaders: ['raw-loader', 'stylus-loader'] },
         { test: /\.less$/, loaders: ['raw-loader', 'less-loader'] },
         { test: /\.scss$|\.sass$/, loaders: ['raw-loader', 'sass-loader'] },
-        { test: /\.(jpg|png)$/, loader: 'url-loader?limit=128000' }
-      ]
+        { test: /\.(jpg|png)$/, loader: 'url-loader?limit=128000' },
+      ],
     },
 
     resolve: {
@@ -47,22 +47,22 @@ module.exports = function(wallaby) {
         path.join(wallaby.projectCacheDir, 'src'),
         // added...
         path.join(wallaby.projectCacheDir, 'projects/formsafe/src/lib'),
-        'node_modules'
-      ]
+        'node_modules',
+      ],
     },
     node: {
       fs: 'empty',
       net: 'empty',
       tls: 'empty',
-      dns: 'empty'
-    }
+      dns: 'empty',
+    },
   });
 
   return {
     files: [
       {
         pattern: 'src/**/*.+(ts|css|less|scss|sass|styl|html|json|svg)',
-        load: false
+        load: false,
       },
       { pattern: 'src/**/*.d.ts', ignore: true },
       { pattern: 'src/**/*spec.ts', ignore: true },
@@ -70,10 +70,10 @@ module.exports = function(wallaby) {
       {
         pattern:
           'projects/formsafe/src/lib/**/*.+(ts|css|less|scss|sass|styl|html|json|svg)',
-        load: false
+        load: false,
       },
       { pattern: 'projects/formsafe/src/lib/**/*.d.ts', ignore: true },
-      { pattern: 'projects/formsafe/src/lib/**/*spec.ts', ignore: true }
+      { pattern: 'projects/formsafe/src/lib/**/*spec.ts', ignore: true },
     ],
 
     tests: [
@@ -81,13 +81,13 @@ module.exports = function(wallaby) {
       { pattern: 'src/**/*e2e-spec.ts', ignore: true },
       // added...
       { pattern: 'projects/formsafe/src/lib/**/*spec.ts', load: false },
-      { pattern: 'projects/formsafe/src/lib/**/*e2e-spec.ts', ignore: true }
+      { pattern: 'projects/formsafe/src/lib/**/*e2e-spec.ts', ignore: true },
     ],
 
     testFramework: 'jasmine',
 
     compilers: {
-      '**/*.ts': wallaby.compilers.typeScript(compilerOptions)
+      '**/*.ts': wallaby.compilers.typeScript(compilerOptions),
     },
 
     middleware: function(app, express) {
@@ -100,7 +100,7 @@ module.exports = function(wallaby) {
     },
 
     env: {
-      kind: 'chrome'
+      kind: 'chrome',
     },
 
     postprocessor: webpackPostprocessor,
@@ -109,6 +109,6 @@ module.exports = function(wallaby) {
       window.__moduleBundler.loadTests();
     },
 
-    debug: true
+    debug: true,
   };
 };

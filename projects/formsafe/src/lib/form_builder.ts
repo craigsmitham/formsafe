@@ -1,17 +1,17 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
   FormBuilder,
   AbstractControlOptions,
   ValidatorFn,
   AsyncValidatorFn
-} from "@angular/forms";
+} from '@angular/forms';
 import {
   ControlsConfig,
   TypedFormGroup,
   TypedFormControl,
   TypedFormArray,
   FormState
-} from "./model";
+} from './model';
 
 @Injectable()
 export class TypedFormBuilder extends FormBuilder {

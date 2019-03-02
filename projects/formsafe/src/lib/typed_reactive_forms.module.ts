@@ -1,6 +1,6 @@
-import { NgModule } from "@angular/core";
-import { TypedFormBuilder } from "./form_builder";
-import { ReactiveFormsModule } from "@angular/forms";
+import { NgModule } from '@angular/core';
+import { TypedFormBuilder } from './form_builder';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [],

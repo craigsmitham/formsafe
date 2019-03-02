@@ -7,22 +7,8 @@ import {
   ValidatorFn,
   AsyncValidatorFn,
   ValidationErrors
-} from "@angular/forms";
-import { Observable } from "rxjs";
-
-export interface TypedAsyncValidatorFn<
-  TControl extends AbstractControl = AbstractControl
-> {
-  (control: TControl):
-    | Promise<ValidationErrors | null>
-    | Observable<ValidationErrors | null>;
-}
-
-export interface TypedValidatorFn<
-  TControl extends AbstractControl = AbstractControl
-> {
-  (control: TControl): ValidationErrors | null;
-}
+} from '@angular/forms';
+import { Observable } from 'rxjs';
 
 // Only used for patching form groups
 type DeepPartial<T> = {

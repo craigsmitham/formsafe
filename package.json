@@ -9,7 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "format": "prettier --write \"**/*.{js,ts,css,scss,sass,json,html}\""
+    "format": "prettier --write \"**/*.{js,ts,css,scss,sass,json,html}\"",
+    "pub": "yarn build && cd ./dist/formsafe && npm publish"
   },
   "private": true,
   "dependencies": {

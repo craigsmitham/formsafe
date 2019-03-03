@@ -18,7 +18,7 @@ type DeepPartial<T> = {
     : DeepPartial<T[P]>
 };
 
-export type DefaultScalars = Date;
+type Scalars = Date;
 
 export class TypedFormControl<T> extends FormControl {
   public readonly value!: T;
@@ -68,16 +68,16 @@ export class TypedFormControl<T> extends FormControl {
 }
 
 type TypedGroupControls<T, TScalar> = {
-  [name in keyof T]-?: TypedControl<T[name], TScalar>
+  [name in keyof T]-?: TypedControl<T[name]>
 };
 
-export class TypedFormGroup<T, TScalar = DefaultScalars> extends FormGroup {
+export class TypedFormGroup<T> extends FormGroup {
   public readonly value!: T;
   public readonly valueChanges!: Observable<T>;
-  public controls!: TypedGroupControls<T, TScalar>;
+  public controls!: TypedGroupControls<T, Scalars>;
 
   constructor(
-    controls: { [key in keyof T]: TypedControl<T[key], DefaultScalars> },
+    controls: { [key in keyof T]: TypedControl<T[key]> },
     options?: ValidatorFn[] | AbstractControlOptions | null,
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
   ) {
@@ -133,25 +133,25 @@ export type FormState<T> =
       disabled: boolean | null;
     };
 
-type TypedControl<T, TScalar> = T extends TScalar
+type TypedControl<T> = T extends Scalars
   ? TypedFormControl<T>
   : T extends Array<infer T1>
   ? TypedFormArray<T1>
   : T extends ReadonlyArray<infer T2>
   ? TypedFormArray<T2>
   : T extends object
-  ? TypedFormGroup<T, TScalar>
+  ? TypedFormGroup<T>
   : TypedFormControl<T>;
 
-export type ControlsConfig<T, TScalar> = {
-  [key in keyof T]-?: T[key] extends TScalar
+export type ControlsConfig<T> = {
+  [key in keyof T]-?: T[key] extends Scalars
     ? (ControlConfig<T[key]> | TypedFormControl<T[key]>)
     : T[key] extends Array<infer T1>
     ? TypedFormArray<T1>
     : T[key] extends ReadonlyArray<infer T2>
     ? TypedFormArray<T2>
     : T[key] extends object
-    ? TypedFormGroup<T[key], TScalar>
+    ? TypedFormGroup<T[key]>
     : (ControlConfig<T[key]> | TypedFormControl<T[key]>)
 };
 

@@ -3,12 +3,47 @@ import { TypedFormGroup, TypedFormControl } from './model';
 
 type WithDisabled<T1, T2> = { [P in Exclude<keyof T1, keyof T2>]: T1[P] } & T2;
 
+export interface InnerType {
+  foo: number;
+  bar: number;
+}
+
+export interface OuterType {
+  inner?: InnerType;
+}
+
 describe('TypedFormBuilderService', () => {
   let fb: TypedFormBuilder;
 
   beforeEach(() => (fb = new TypedFormBuilder()));
 
   describe('Typed form group', () => {
+    it('can patch with partial value', () => {
+      const c = fb.group<OuterType>({
+        inner: fb.group<InnerType>({
+          foo: [1],
+          bar: [2],
+        }),
+      });
+      expect(c.value).toEqual({
+        inner: {
+          foo: 1,
+          bar: 2,
+        },
+      });
+      c.patchValue({
+        inner: {
+          foo: 2,
+        },
+      });
+      expect(c.value).toEqual({
+        inner: {
+          foo: 2,
+          bar: 2,
+        },
+      });
+    });
+
     it('treats Date types as scalar values', () => {
       const ctrl = fb.group<{
         someDate: Date;

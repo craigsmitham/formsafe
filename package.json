@@ -4,13 +4,15 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
+    "clean": "rimraf ./dist",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
+    "test": "ng test --watch false",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "format": "prettier --write \"**/*.{js,ts,css,scss,sass,json,html}\"",
-    "pub": "yarn build && npm publish ./dist/formsafe"
+    "pub": "yarn clean && yarn test && yarn build && yarn publish ./dist/formsafe",
+    "npmv": "npm -v"
   },
   "private": true,
   "dependencies": {
@@ -48,6 +50,7 @@
     "ng-packagr": "^4.2.0",
     "prettier": "^1.16.4",
     "protractor": "~5.4.0",
+    "rimraf": "^2.6.3",
     "ts-node": "~7.0.0",
     "tsickle": ">=0.34.0",
     "tslib": "^1.9.0",

@@ -8,8 +8,11 @@ export interface InnerType {
   bar: number;
 }
 
-export interface OuterType {
+export interface SuperType {
   inner?: InnerType;
+}
+export interface OuterType extends SuperType {
+  name: string;
 }
 
 describe('TypedFormBuilderService', () => {
@@ -20,12 +23,14 @@ describe('TypedFormBuilderService', () => {
   describe('Typed form group', () => {
     it('can patch with partial value', () => {
       const c = fb.group<OuterType>({
+        name: null,
         inner: fb.group<InnerType>({
           foo: [1],
           bar: [2],
         }),
       });
       expect(c.value).toEqual({
+        name: null,
         inner: {
           foo: 1,
           bar: 2,
@@ -37,6 +42,7 @@ describe('TypedFormBuilderService', () => {
         },
       });
       expect(c.value).toEqual({
+        name: null,
         inner: {
           foo: 2,
           bar: 2,

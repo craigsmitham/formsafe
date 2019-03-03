@@ -67,14 +67,12 @@ export class TypedFormControl<T> extends FormControl {
   }
 }
 
-type TypedGroupControls<T, TScalar> = {
-  [name in keyof T]-?: TypedControl<T[name]>
-};
+type TypedGroupControls<T> = { [name in keyof T]-?: TypedControl<T[name]> };
 
 export class TypedFormGroup<T> extends FormGroup {
   public readonly value!: T;
   public readonly valueChanges!: Observable<T>;
-  public controls!: TypedGroupControls<T, Scalars>;
+  public controls!: TypedGroupControls<T>;
 
   constructor(
     controls: { [key in keyof T]: TypedControl<T[key]> },

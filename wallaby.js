@@ -68,8 +68,7 @@ module.exports = function(wallaby) {
       { pattern: 'src/**/*spec.ts', ignore: true },
       // added...
       {
-        pattern:
-          'projects/formsafe/src/lib/**/*.+(ts|css|less|scss|sass|styl|html|json|svg)',
+        pattern: 'projects/formsafe/src/lib/**/*.+(ts|css|less|scss|sass|styl|html|json|svg)',
         load: false,
       },
       { pattern: 'projects/formsafe/src/lib/**/*.d.ts', ignore: true },
@@ -92,10 +91,7 @@ module.exports = function(wallaby) {
 
     middleware: function(app, express) {
       var path = require('path');
-      app.use(
-        '/favicon.ico',
-        express.static(path.join(__dirname, 'src/favicon.ico'))
-      );
+      app.use('/favicon.ico', express.static(path.join(__dirname, 'src/favicon.ico')));
       app.use('/assets', express.static(path.join(__dirname, 'src/assets')));
     },
 

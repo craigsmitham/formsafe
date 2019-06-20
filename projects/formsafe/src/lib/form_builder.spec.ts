@@ -82,9 +82,7 @@ describe('TypedFormBuilderService', () => {
       let ctrl: TypedFormGroup<FormValueType>;
       afterEach(() => {
         expect(ctrl.controls.name instanceof TypedFormControl).toBe(true);
-        expect(ctrl.controls.description instanceof TypedFormControl).toBe(
-          true
-        );
+        expect(ctrl.controls.description instanceof TypedFormControl).toBe(true);
         expect(ctrl.controls.address instanceof TypedFormGroup).toBe(true);
         const value: FormValueType = ctrl.value;
         const nameValue: string = ctrl.controls.name.value;

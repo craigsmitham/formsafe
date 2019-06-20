@@ -1,11 +1,11 @@
 import {
   AbstractControl,
-  FormControl,
-  FormArray,
-  FormGroup,
   AbstractControlOptions,
-  ValidatorFn,
   AsyncValidatorFn,
+  FormArray,
+  FormControl,
+  FormGroup,
+  ValidatorFn,
 } from '@angular/forms';
 import { Observable } from 'rxjs';
 
@@ -25,11 +25,7 @@ export class TypedFormControl<T> extends FormControl {
   public readonly valueChanges!: Observable<T | null | undefined>;
   constructor(
     formState: FormState<T> = null,
-    validatorOrOpts?:
-      | ValidatorFn
-      | ValidatorFn[]
-      | AbstractControlOptions
-      | null,
+    validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null,
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
   ) {
     super(formState, validatorOrOpts, asyncValidator);
@@ -82,10 +78,7 @@ export class TypedFormGroup<T> extends FormGroup {
     super(controls, options, asyncValidator);
   }
 
-  setValue(
-    value: T,
-    options: { onlySelf?: boolean; emitEvent?: boolean } = {}
-  ): void {
+  setValue(value: T, options: { onlySelf?: boolean; emitEvent?: boolean } = {}): void {
     super.setValue(value, options);
   }
 
@@ -96,10 +89,7 @@ export class TypedFormGroup<T> extends FormGroup {
     super.patchValue(value, options);
   }
 
-  reset(
-    value: T | {} = {},
-    options: { onlySelf?: boolean; emitEvent?: boolean } = {}
-  ): void {
+  reset(value: T | {} = {}, options: { onlySelf?: boolean; emitEvent?: boolean } = {}): void {
     super.reset(value, options);
   }
 
@@ -111,11 +101,7 @@ export class TypedFormGroup<T> extends FormGroup {
 export class TypedFormArray<T> extends FormArray {
   constructor(
     controls: AbstractControl[],
-    validatorOrOpts?:
-      | ValidatorFn
-      | ValidatorFn[]
-      | AbstractControlOptions
-      | null,
+    validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null,
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
   ) {
     super(controls, validatorOrOpts, asyncValidator);

@@ -1,16 +1,11 @@
 import { Injectable } from '@angular/core';
-import {
-  FormBuilder,
-  AbstractControlOptions,
-  ValidatorFn,
-  AsyncValidatorFn,
-} from '@angular/forms';
+import { AbstractControlOptions, AsyncValidatorFn, FormBuilder, ValidatorFn } from '@angular/forms';
 import {
   ControlsConfig,
-  TypedFormGroup,
-  TypedFormControl,
-  TypedFormArray,
   FormState,
+  TypedFormArray,
+  TypedFormControl,
+  TypedFormGroup,
 } from './model';
 
 @Injectable()
@@ -45,11 +40,7 @@ export class TypedFormBuilder extends FormBuilder {
 
   control<T = any>(
     formState: FormState<T>,
-    validatorOrOpts?:
-      | ValidatorFn
-      | ValidatorFn[]
-      | AbstractControlOptions
-      | null,
+    validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null,
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
   ): TypedFormControl<T> {
     return new TypedFormControl<T>(formState, validatorOrOpts, asyncValidator);
@@ -57,18 +48,10 @@ export class TypedFormBuilder extends FormBuilder {
 
   array<T>(
     controlsConfig: any[],
-    validatorOrOpts?:
-      | ValidatorFn
-      | ValidatorFn[]
-      | AbstractControlOptions
-      | null,
+    validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null,
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
   ): TypedFormArray<T> {
-    const ctrl = this._fb.array(
-      controlsConfig,
-      validatorOrOpts,
-      asyncValidator
-    );
+    const ctrl = this._fb.array(controlsConfig, validatorOrOpts, asyncValidator);
     return new TypedFormArray<T>(ctrl.controls, {
       asyncValidators: ctrl.asyncValidator,
       updateOn: ctrl.updateOn,

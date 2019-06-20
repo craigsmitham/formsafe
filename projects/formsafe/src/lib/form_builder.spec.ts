@@ -20,6 +20,13 @@ describe('TypedFormBuilderService', () => {
 
   beforeEach(() => (fb = new TypedFormBuilder()));
 
+  describe('Typed form array', () => {
+    it('should have an array for a form value', () => {
+      const test = fb.array<string>([]);
+      const value: string[] = test.value;
+    });
+  });
+
   describe('Typed form group', () => {
     it('can patch with partial value', () => {
       const c = fb.group<OuterType>({

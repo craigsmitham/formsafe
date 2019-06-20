@@ -21,7 +21,7 @@ type DeepPartial<T> = {
 type Scalars = Date;
 
 export class TypedFormControl<T> extends FormControl {
-  public readonly value!: T;
+  public readonly value!: T | null | undefined;
   public readonly valueChanges!: Observable<T | null | undefined>;
   constructor(
     formState: FormState<T> = null,
@@ -99,12 +99,42 @@ export class TypedFormGroup<T> extends FormGroup {
 }
 
 export class TypedFormArray<T> extends FormArray {
+  public readonly value!: T[];
+  public readonly valueChanges!: Observable<T[]>;
   constructor(
     controls: AbstractControl[],
     validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null,
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
   ) {
     super(controls, validatorOrOpts, asyncValidator);
+  }
+
+  setValue(
+    value: T[],
+    options?: {
+      onlySelf?: boolean;
+      emitEvent?: boolean;
+      emitModelToViewChange?: boolean;
+      emitViewToModelChange?: boolean;
+    }
+  ): void {
+    super.setValue(value, options);
+  }
+
+  patchValue(
+    value: T[],
+    options: {
+      onlySelf?: boolean;
+      emitEvent?: boolean;
+      emitModelToViewChange?: boolean;
+      emitViewToModelChange?: boolean;
+    } = {}
+  ): void {
+    super.patchValue(value, options);
+  }
+
+  getRawValue(): T[] {
+    return super.getRawValue();
   }
 }
 

@@ -15,7 +15,7 @@ type DeepPartial<T> = {
     ? Array<DeepPartial<U>>
     : T[P] extends ReadonlyArray<infer U>
     ? ReadonlyArray<DeepPartial<U>>
-    : DeepPartial<T[P]>
+    : DeepPartial<T[P]>;
 };
 
 type Scalars = Date;
@@ -63,12 +63,10 @@ export class TypedFormControl<T> extends FormControl {
   }
 }
 
-type TypedGroupControls<T> = { [name in keyof T]-?: TypedControl<T[name]> };
-
 export class TypedFormGroup<T> extends FormGroup {
   public readonly value!: T;
   public readonly valueChanges!: Observable<T>;
-  public controls!: TypedGroupControls<T>;
+  public controls!: FormGroupControls<T>;
 
   constructor(
     controls: { [key in keyof T]: TypedControl<T[key]> },
@@ -141,40 +139,40 @@ export class TypedFormArray<T> extends FormArray {
 export type FormState<T> =
   | T
   | null
-  | undefined
   | {
       value: T | null;
       disabled: boolean | null;
     };
 
-type TypedControl<T> = T extends Scalars
+type TypedControl<T> = NonNullable<T> extends Scalars
   ? TypedFormControl<T>
-  : T extends Array<infer T1>
-  ? TypedFormArray<T1>
-  : T extends ReadonlyArray<infer T2>
-  ? TypedFormArray<T2>
+  : NonNullable<T> extends Array<infer TArrayItem>
+  ? TypedFormArray<TArrayItem>
+  : NonNullable<T> extends ReadonlyArray<infer TReadonlyArrayItem>
+  ? TypedFormArray<TReadonlyArrayItem>
   : T extends object
   ? TypedFormGroup<T>
   : TypedFormControl<T>;
 
-export type ControlsConfig<T> = {
-  [key in keyof T]-?: T[key] extends Scalars
-    ? (ControlConfig<T[key]> | TypedFormControl<T[key]>)
-    : T[key] extends Array<infer T1>
-    ? TypedFormArray<T1>
-    : T[key] extends ReadonlyArray<infer T2>
-    ? TypedFormArray<T2>
-    : T[key] extends object
-    ? TypedFormGroup<T[key]>
-    : (ControlConfig<T[key]> | TypedFormControl<T[key]>)
-};
+export type FormGroupControls<T> = { [name in keyof T]-?: TypedControl<T[name]> };
+export type FormGroupControlConfig<T> = { [key in keyof T]-?: ControlConfig<T[key]> };
 
-type ControlConfig<T> =
-  | undefined
+export type ControlConfig<T> = NonNullable<T> extends Scalars
+  ? FormControlConfig<T>
+  : NonNullable<T> extends Array<infer TArrayItem>
+  ? TypedFormArray<TArrayItem>
+  : NonNullable<T> extends ReadonlyArray<infer TReadonlyArrayItem>
+  ? TypedFormArray<TReadonlyArrayItem>
+  : T extends object
+  ? TypedFormGroup<T>
+  : FormControlConfig<T>;
+
+export type FormControlConfig<T> =
+  | null
+  | TypedFormControl<T>
   | FormState<T>
   | {
       0?: T | null;
       1?: ValidatorFn | ValidatorFn[] | null;
       2?: AsyncValidatorFn | AsyncValidatorFn[] | null;
-    }
-  | never[];
+    };

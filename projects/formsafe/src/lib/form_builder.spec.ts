@@ -1,5 +1,5 @@
 import { TypedFormBuilder } from './form_builder';
-import { TypedFormGroup, TypedFormControl } from './model';
+import { FormGroupControlConfig, TypedFormControl, TypedFormGroup } from './model';
 
 type WithDisabled<T1, T2> = { [P in Exclude<keyof T1, keyof T2>]: T1[P] } & T2;
 
@@ -28,6 +28,48 @@ describe('TypedFormBuilderService', () => {
   });
 
   describe('Typed form group', () => {
+    it('should be able to configure a nullable object property', () => {
+      type Form = {
+        nullableObject: null | { val: string };
+        undefinedObject?: { val: { innerVal: string } };
+        undefinedOrNullObject?: null | { val: number };
+      };
+      type FormConfig = FormGroupControlConfig<Form>;
+      const configWithControl: FormConfig = {
+        nullableObject: fb.group<{ val: string }>({ val: 'a' }),
+        undefinedObject: fb.group<{ val: { innerVal: string } }>({
+          val: fb.group({ innerVal: 'b' }),
+        }),
+        undefinedOrNullObject: fb.group<{ val: number }>({ val: 1 }),
+      };
+      const group = fb.group(configWithControl);
+      expect(group.controls.nullableObject.constructor.name).toEqual('TypedFormGroup');
+      expect(group.controls.nullableObject.value).toEqual({ val: 'a' });
+      expect(group.controls.undefinedObject.constructor.name).toEqual('TypedFormGroup');
+      expect(group.controls.undefinedObject.value).toEqual({ val: { innerVal: 'b' } });
+      expect(group.controls.undefinedOrNullObject.constructor.name).toEqual('TypedFormGroup');
+      expect(group.controls.undefinedOrNullObject.value).toEqual({ val: 1 });
+    });
+
+    it('should be able to configure a nullable array property', () => {
+      type Form = {
+        nullableArray: null | string[];
+        undefinedArray?: number[];
+        undefinedOrNullArray?: null | Date[];
+      };
+      type FormConfig = FormGroupControlConfig<Form>;
+      const date = new Date();
+      const configWithControl: FormConfig = {
+        nullableArray: fb.array(['a']),
+        undefinedArray: fb.array([1]),
+        undefinedOrNullArray: fb.array([date]),
+      };
+      const group = fb.group(configWithControl);
+      expect(group.controls.nullableArray.value).toEqual(['a']);
+      expect(group.controls.undefinedArray.value).toEqual([1]);
+      expect(group.controls.undefinedOrNullArray.value).toEqual([date]);
+    });
+
     it('can patch with partial value', () => {
       const c = fb.group<OuterType>({
         name: null,
@@ -42,13 +84,13 @@ describe('TypedFormBuilderService', () => {
           foo: 1,
           bar: 2,
         },
-      });
+      } as any);
       c.patchValue({
         inner: {
           foo: 2,
         },
       });
-      expect(c.value).toEqual({
+      expect(c.value as any).toEqual({
         name: null,
         inner: {
           foo: 2,
@@ -82,7 +124,7 @@ describe('TypedFormBuilderService', () => {
           street: '123 main',
         }),
       });
-      const nameVal: string | undefined = ctrl.controls.name.value;
+      const nameVal: string | null | undefined = ctrl.controls.name.value;
     });
 
     describe('typical usage', () => {
@@ -92,7 +134,7 @@ describe('TypedFormBuilderService', () => {
         expect(ctrl.controls.description instanceof TypedFormControl).toBe(true);
         expect(ctrl.controls.address instanceof TypedFormGroup).toBe(true);
         const value: FormValueType = ctrl.value;
-        const nameValue: string = ctrl.controls.name.value;
+        const nameValue: string | null | undefined = ctrl.controls.name.value;
       });
 
       describe('initialized with values', () => {
@@ -147,7 +189,7 @@ describe('TypedFormBuilderService', () => {
 
       describe('initialized with null or undefined', () => {
         afterEach(() => {
-          expect(ctrl.value).toEqual({
+          expect(ctrl.value as any).toEqual({
             name: null,
             description: null,
             address: {
@@ -168,10 +210,10 @@ describe('TypedFormBuilderService', () => {
 
         it('can be initialized with undefined', () => {
           ctrl = fb.group<FormValueType>({
-            name: undefined,
+            name: null,
             description: [undefined],
             address: fb.group<FormValueType['address']>({
-              street: undefined,
+              street: null,
             }),
           });
         });

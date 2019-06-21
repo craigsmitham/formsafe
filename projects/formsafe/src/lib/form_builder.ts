@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AbstractControlOptions, AsyncValidatorFn, FormBuilder, ValidatorFn } from '@angular/forms';
 import {
-  ControlsConfig,
+  ControlConfig,
+  FormGroupControlConfig,
   FormState,
   TypedFormArray,
   TypedFormControl,
@@ -18,7 +19,7 @@ export class TypedFormBuilder extends FormBuilder {
   }
 
   group<T>(
-    controlsConfig: ControlsConfig<T>,
+    controlsConfig: FormGroupControlConfig<T>,
     options?:
       | AbstractControlOptions
       | {
@@ -47,7 +48,7 @@ export class TypedFormBuilder extends FormBuilder {
   }
 
   array<T>(
-    controlsConfig: any[],
+    controlsConfig: ControlConfig<T>[],
     validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null,
     asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null
   ): TypedFormArray<T> {

@@ -11,10 +11,10 @@ import { Observable } from 'rxjs';
 
 // Only used for patching form groups
 type DeepPartial<T> = {
-  [P in keyof T]?: T[P] extends Array<infer U>
-    ? Array<DeepPartial<U>>
-    : T[P] extends ReadonlyArray<infer U>
-    ? ReadonlyArray<DeepPartial<U>>
+  [P in keyof T]?: T[P] extends Array<infer TArrayItem>
+    ? Array<DeepPartial<TArrayItem>>
+    : T[P] extends ReadonlyArray<infer TReadonlyArrayitem>
+    ? ReadonlyArray<DeepPartial<TReadonlyArrayitem>>
     : DeepPartial<T[P]>;
 };
 

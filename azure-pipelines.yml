@@ -5,6 +5,7 @@
 
 trigger:
 - master
+- develop
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -15,7 +16,8 @@ steps:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
 
-- script: |
-    yarn install
-    yarn build
-  displayName: 'yarn install and build'
+- script: yarn install
+- script: yarn format-check
+- script: yarn lint
+- script: yarn test
+- script: yarn build

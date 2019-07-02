@@ -1,6 +1,6 @@
+import { Validators } from '@angular/forms';
 import { TypedFormBuilder } from './form_builder';
 import { FormGroupControlConfig, TypedFormControl, TypedFormGroup } from './model';
-import { Validators } from '@angular/forms';
 
 type WithDisabled<T1, T2> = { [P in Exclude<keyof T1, keyof T2>]: T1[P] } & T2;
 
@@ -30,11 +30,11 @@ describe('TypedFormBuilderService', () => {
 
   describe('Typed form group', () => {
     it('should be able to configure a nullable object property', () => {
-      type Form = {
+      interface Form {
         nullableObject: null | { val: string };
         undefinedObject?: { val: { innerVal: string } };
         undefinedOrNullObject?: null | { val: number };
-      };
+      }
       type FormConfig = FormGroupControlConfig<Form>;
       const configWithControl: FormConfig = {
         nullableObject: fb.group<{ val: string }>({ val: 'a' }),
@@ -53,11 +53,11 @@ describe('TypedFormBuilderService', () => {
     });
 
     it('should be able to configure a nullable array property', () => {
-      type Form = {
+      interface Form {
         nullableArray: null | string[];
         undefinedArray?: number[];
         undefinedOrNullArray?: null | Date[];
-      };
+      }
       type FormConfig = FormGroupControlConfig<Form>;
       const date = new Date();
       const configWithControl: FormConfig = {
@@ -69,16 +69,13 @@ describe('TypedFormBuilderService', () => {
       expect(group.controls.nullableArray.value).toEqual(['a']);
       expect(group.controls.undefinedArray.value).toEqual([1]);
       expect(group.controls.undefinedOrNullArray.value).toEqual([date]);
-      group.controls.nullableArray.value;
-      group.controls.undefinedArray.value;
-      group.controls.undefinedOrNullArray.value;
     });
 
     it('should be able to configure property with a disabled form sate', () => {
-      type Form = {
+      interface Form {
         prop: string;
         undefinedProp?: string;
-      };
+      }
       type FormConfig = FormGroupControlConfig<Form>;
       const date = new Date();
       const configWithControl: FormConfig = {
@@ -138,7 +135,7 @@ describe('TypedFormBuilderService', () => {
     }
 
     it('should expect the user to type potentially disabled fields', () => {
-      let ctrl = fb.group<WithDisabled<FormValueType, { name?: string }>>({
+      const ctrl = fb.group<WithDisabled<FormValueType, { name?: string }>>({
         name: { value: 'foo', disabled: true },
         description: 'baz',
         address: fb.group({
@@ -238,7 +235,7 @@ describe('TypedFormBuilderService', () => {
 
           const input: Input = {} as any;
 
-          const ctrl = fb.group<Input>({
+          const inputGroup = fb.group<Input>({
             prop: [input.prop, Validators.required],
           });
         });

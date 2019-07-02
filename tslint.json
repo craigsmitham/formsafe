@@ -21,17 +21,6 @@
     "space-before-function-paren": false,
     "trailing-comma": [false],
     "whitespace": [false],
-    // rxjs-tslint-rules (https://github.com/cartant/rxjs-tslint-rules)
-    "rxjs-no-unsafe-takeuntil": { "severity": "error" },
-    "rxjs-no-nested-subscribe": { "severity": "error" },
-    "rxjs-ban-operators": {
-      "options": [
-        {
-          "combineLatest": "Use the static version instead"
-        }
-      ],
-      "severity": "error"
-    },
     "arrow-return-shorthand": true,
     "callable-types": true,
     "class-name": true,

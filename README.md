@@ -1,5 +1,7 @@
 # FormSafe
 
+![build status](https://img.shields.io/azure-devops/build/craigsmitham/oss/1/master.svg) ![tests](https://img.shields.io/azure-devops/tests/craigsmitham/oss/1/master.svg)
+
 ## Typed Reactive Forms for Angular
 
 ### Summary

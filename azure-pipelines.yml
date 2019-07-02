@@ -17,7 +17,16 @@ steps:
   displayName: 'Install Node.js'
 
 - script: yarn install
+  displayName: Install dependencies
+
 - script: yarn format-check
+  displayName: Check source formatting
+
 - script: yarn lint
+  displayName: Style linting
+
 - script: yarn test
+  displayName: Run tests
+
 - script: yarn build
+  displayName: Build

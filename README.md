@@ -1,6 +1,6 @@
 # FormSafe - Typed Reactive Forms for Angular
 
-[![formsafe version](https://img.shields.io/npm/v/formsafe.svg)](https://www.npmjs.com/package/formsafe) ![build status](https://img.shields.io/azure-devops/build/craigsmitham/oss/1/master.svg) ![tests](https://img.shields.io/azure-devops/tests/craigsmitham/oss/1/master.svg) ![code coverage](https://img.shields.io/azure-devops/coverage/craigsmitham/oss/1/master.svg)
+[![formsafe version](https://img.shields.io/npm/v/formsafe.svg)](https://www.npmjs.com/package/formsafe) ![build status](https://img.shields.io/azure-devops/build/craigsmitham/oss/1/master.svg) ![tests](https://img.shields.io/azure-devops/tests/craigsmitham/oss/1/master.svg) ![code coverage](https://img.shields.io/azure-devops/coverage/craigsmitham/oss/1/master.svg) ![formsafe license](https://img.shields.io/npm/l/formsafe.svg) ![vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/formsafe.svg)
 
 ### Summary
 

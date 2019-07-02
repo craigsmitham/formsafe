@@ -1,5 +1,6 @@
 import { TypedFormBuilder } from './form_builder';
 import { FormGroupControlConfig, TypedFormControl, TypedFormGroup } from './model';
+import { Validators } from '@angular/forms';
 
 type WithDisabled<T1, T2> = { [P in Exclude<keyof T1, keyof T2>]: T1[P] } & T2;
 
@@ -68,6 +69,26 @@ describe('TypedFormBuilderService', () => {
       expect(group.controls.nullableArray.value).toEqual(['a']);
       expect(group.controls.undefinedArray.value).toEqual([1]);
       expect(group.controls.undefinedOrNullArray.value).toEqual([date]);
+      group.controls.nullableArray.value;
+      group.controls.undefinedArray.value;
+      group.controls.undefinedOrNullArray.value;
+    });
+
+    it('should be able to configure property with a disabled form sate', () => {
+      type Form = {
+        prop: string;
+        undefinedProp?: string;
+      };
+      type FormConfig = FormGroupControlConfig<Form>;
+      const date = new Date();
+      const configWithControl: FormConfig = {
+        prop: { value: '', disabled: true },
+        undefinedProp: { value: undefined, disabled: null },
+      };
+      const group = fb.group(configWithControl);
+      expect(group.controls.prop.value).toEqual('');
+      expect(group.controls.undefinedProp.value).toEqual(undefined);
+      expect(group.controls.undefinedProp.enabled).toEqual(true);
     });
 
     it('can patch with partial value', () => {
@@ -208,14 +229,29 @@ describe('TypedFormBuilderService', () => {
           });
         });
 
+        it('', () => {
+          interface Input {
+            prop: boolean | null;
+          }
+          type TProp = Input['prop'];
+          type TConfig = FormGroupControlConfig<Input>['prop'];
+
+          const input: Input = {} as any;
+
+          const ctrl = fb.group<Input>({
+            prop: [input.prop, Validators.required],
+          });
+        });
+
         it('can be initialized with undefined', () => {
-          ctrl = fb.group<FormValueType>({
-            name: null,
+          const ct = fb.group<FormValueType>({
+            name: undefined,
             description: [undefined],
             address: fb.group<FormValueType['address']>({
               street: null,
             }),
           });
+          expect(ct.controls.name.constructor.name).toBe('TypedFormControl');
         });
       });
     });

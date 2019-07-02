@@ -138,41 +138,43 @@ export class TypedFormArray<T> extends FormArray {
 
 export type FormState<T> =
   | T
+  | undefined
   | null
   | {
-      value: T | null;
+      value: T | null | undefined;
       disabled: boolean | null;
     };
 
-type TypedControl<T> = NonNullable<T> extends Scalars
+type TypedControl<T> = [NonNullable<T>] extends Scalars
   ? TypedFormControl<T>
-  : NonNullable<T> extends Array<infer TArrayItem>
+  : [NonNullable<T>] extends [Array<infer TArrayItem>]
   ? TypedFormArray<TArrayItem>
-  : NonNullable<T> extends ReadonlyArray<infer TReadonlyArrayItem>
+  : [NonNullable<T>] extends [ReadonlyArray<infer TReadonlyArrayItem>]
   ? TypedFormArray<TReadonlyArrayItem>
-  : T extends object
+  : [T] extends [object]
   ? TypedFormGroup<T>
   : TypedFormControl<T>;
 
 export type FormGroupControls<T> = { [name in keyof T]-?: TypedControl<T[name]> };
-export type FormGroupControlConfig<T> = { [key in keyof T]-?: ControlConfig<T[key]> };
+export type FormGroupControlConfig<T> = { [key in keyof T]-?: ControlConfig<NonNullable<T[key]>> };
 
-export type ControlConfig<T> = NonNullable<T> extends Scalars
+export type ControlConfig<T> = [NonNullable<T>] extends [Scalars]
   ? FormControlConfig<T>
-  : NonNullable<T> extends Array<infer TArrayItem>
+  : [NonNullable<T>] extends [Array<infer TArrayItem>]
   ? TypedFormArray<TArrayItem>
-  : NonNullable<T> extends ReadonlyArray<infer TReadonlyArrayItem>
+  : [NonNullable<T>] extends [ReadonlyArray<infer TReadonlyArrayItem>]
   ? TypedFormArray<TReadonlyArrayItem>
-  : T extends object
+  : [T] extends [object]
   ? TypedFormGroup<T>
   : FormControlConfig<T>;
 
-export type FormControlConfig<T> =
-  | null
-  | TypedFormControl<T>
-  | FormState<T>
-  | {
-      0?: T | null;
-      1?: ValidatorFn | ValidatorFn[] | null;
-      2?: AsyncValidatorFn | AsyncValidatorFn[] | null;
-    };
+export type FormControlConfig<T> = FormState<T> | TypedFormControl<T> | BracketConfig<T>;
+
+type BracketConfig<T> =
+  | [FormState<T>]
+  | [FormState<T>, ValidatorFn | ValidatorFn[] | null]
+  | [
+      FormState<T>,
+      ValidatorFn | ValidatorFn[] | null,
+      AsyncValidatorFn | AsyncValidatorFn[] | null
+    ];

@@ -30,3 +30,12 @@ steps:
 
 - script: yarn build
   displayName: Build
+
+- task: PublishTestResults@2
+  displayName: 'Publish test results'
+  condition: succeededOrFailed()
+  inputs:
+    searchFolder: $(System.DefaultWorkingDirectory)
+    testRunTitle: Angular
+    testResultsFormat: JUnit
+    testResultsFiles: "**/TESTS*.xml"

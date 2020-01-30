@@ -26,6 +26,32 @@ describe('TypedFormBuilderService', () => {
       const test = fb.array<string>([]);
       const value: string[] = test.value;
     });
+
+    it('should accept array of control configs', () => {
+      const test = fb.array<{ id: string }>([{ id: 'foo' }]);
+      const ctrl = test.controls[0];
+      expect(ctrl instanceof TypedFormControl).toBe(true);
+    });
+
+    it('should accept array of form controls', () => {
+      const test = fb.array<{ id: string }>([fb.control({ id: 'foo' })]);
+      const ctrl = test.controls[0];
+      expect(ctrl instanceof TypedFormControl).toBe(true);
+    });
+
+    it('should accept array of form controls or configs', () => {
+      const test = fb.array<{ id: string }>([fb.control({ id: 'foo' }), { id: 'bar' }]);
+      const ctrl = test.controls[0];
+      expect(ctrl instanceof TypedFormControl).toBe(true);
+      const ctrl1 = test.controls[1];
+      expect(ctrl1 instanceof TypedFormControl).toBe(true);
+    });
+
+    it('should accept array of form groups', () => {
+      const test = fb.array<{ id: string }>([fb.group({ id: 'foo' })]);
+      const ctrl = test.controls[0];
+      expect(ctrl instanceof TypedFormGroup).toBe(true);
+    });
   });
 
   describe('Typed form group', () => {

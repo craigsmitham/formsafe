@@ -6,7 +6,7 @@
     "ng": "ng",
     "clean": "rimraf ./dist",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod",
     "test": "ng test --watch false --code-coverage",
     "lint": "ng lint",
     "e2e": "ng e2e",

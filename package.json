@@ -13,7 +13,7 @@
     "format": "prettier --write \"**/*.{js,ts,css,scss,sass,json,html}\"",
     "format-check": "prettier --check \"**/*.{js,ts,css,scss,sass,json,html}\"",
     "pub": "yarn clean && yarn test && yarn build && yarn push",
-    "push": "yarn publish ./dist/formsafe",
+    "push": "yarn publish ./dist/formsafe --no-git-tag-version",
     "npmv": "npm -v"
   },
   "private": true,

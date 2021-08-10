@@ -1,13 +1,13 @@
 {
   "name": "formsafe",
-  "version": "9.0.0",
+  "version": "12.0.0",
   "license": "MIT",
   "dependencies": {
     "tslib": "^2.0.0"
   },
   "peerDependencies": {
-    "@angular/common": "^9.0.0",
-    "@angular/core": "^9.0.0",
-    "@angular/forms": "^9.0.0"
+    "@angular/common": "^12.0.0",
+    "@angular/core": "^12.0.0",
+    "@angular/forms": "^12.0.0"
   }
 }

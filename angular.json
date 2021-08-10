@@ -10,7 +10,7 @@
       "prefix": "fsx",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/formsafe/tsconfig.lib.json",
             "project": "projects/formsafe/ng-package.json"
